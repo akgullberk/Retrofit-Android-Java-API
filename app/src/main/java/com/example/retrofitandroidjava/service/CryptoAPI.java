@@ -9,7 +9,6 @@ import retrofit2.http.GET;
 
 public interface CryptoAPI {
 
-    @GET("/economy/cripto")
+    @GET("/atilsamancioglu/K21-JSONDataSet/master/crypto.json")
     Call<List<CryptoModel>> getData();
-
 }
