@@ -7,9 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.retrofitandroidjava.R;
+import com.example.retrofitandroidjava.adapter.RecyclerViewAdapter;
 import com.example.retrofitandroidjava.model.CryptoModel;
 import com.example.retrofitandroidjava.service.CryptoAPI;
 import com.google.gson.Gson;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private String BASE_URL = "https://raw.githubusercontent.com";
     Retrofit retrofit;
     RecyclerView recyclerView;
+    RecyclerViewAdapter recyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         loadData();
-        System.out.println("dsad");
+
     }
 
     private void loadData(){
@@ -66,9 +69,11 @@ public class MainActivity extends AppCompatActivity {
                     List<CryptoModel> responseList = response.body();
                     cryptoModels = new ArrayList<>(responseList);
 
-                    for(CryptoModel cryptoModel : cryptoModels){
-                        System.out.println(cryptoModel);
-                    }
+                    recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                    recyclerViewAdapter = new RecyclerViewAdapter(cryptoModels);
+                    recyclerView.setAdapter(recyclerViewAdapter);
+
+
 
                 }
 
